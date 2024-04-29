@@ -3,12 +3,27 @@ namespace DesafioPOO.Models
     public abstract class Smartphone
     {
         public string Numero { get; set; }
-        // TODO: Implementar as propriedades faltantes de acordo com o diagrama
+        public string Modelo { get; protected set; }
+        public int Memoria { get; protected set; }
+        public string IMEI { get; protected set; }
 
-        public Smartphone(string numero)
+        public Smartphone(string numero, string modelo,   string imei,int memoria)
         {
-            Numero = numero;
-            // TODO: Passar os parâmetros do construtor para as propriedades
+            Numero = string.IsNullOrWhiteSpace(numero)
+                ? throw new ArgumentNullException("numero", "O número não pode ser nulo, vazio ou conter apenas espaços em branco.")
+                : numero;
+
+            Modelo = string.IsNullOrWhiteSpace(modelo)
+                    ? throw new ArgumentNullException("modelo", "O modelo não pode ser nulo, vazio ou conter apenas espaços em branco.")
+                    : modelo;
+
+            Memoria = memoria > 0
+                ? memoria
+                : throw new ArgumentOutOfRangeException("memoria", "A memória deve ser maior que zero.");
+
+            IMEI = string.IsNullOrWhiteSpace(imei)
+                ? throw new ArgumentNullException("imei", "O IMEI não pode ser nulo, vazio ou conter apenas espaços em branco.")
+                : imei;
         }
 
         public void Ligar()
